@@ -27,3 +27,13 @@ output "public_subnet_ids" {
   description = "IDs of the public subnets"
   value       = module.networking.public_subnet_ids
 }
+
+output "prometheus_url" {
+  description = "URL to access Prometheus"
+  value       = module.monitoring.prometheus_url
+}
+
+output "grafana_url" {
+  description = "URL to access Grafana"
+  value       = module.monitoring.grafana_url
+}

@@ -45,3 +45,10 @@ variable "memory" {
   type        = number
   default     = 2048
 }
+
+variable "grafana_admin_password" {
+  description = "Admin password for Grafana"
+  type        = string
+  sensitive   = true
+  default     = "admin123"
+}

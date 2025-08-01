@@ -28,12 +28,12 @@ output "public_subnet_ids" {
   value       = module.networking.public_subnet_ids
 }
 
-output "prometheus_url" {
-  description = "URL to access Prometheus"
-  value       = module.monitoring.prometheus_url
+output "mlflow_url" {
+  description = "URL to access MLflow"
+  value       = module.mlflow.mlflow_url
 }
 
-output "grafana_url" {
-  description = "URL to access Grafana"
-  value       = module.monitoring.grafana_url
+output "airflow_url" {
+  description = "URL to access Airflow"
+  value       = module.airflow.airflow_url
 }

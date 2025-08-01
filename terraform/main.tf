@@ -75,19 +75,44 @@ module "ecs" {
   memory                = var.memory
 }
 
-# Monitoring Module
-module "monitoring" {
-  source = "./modules/monitoring"
+
+
+# MLflow Module
+module "mlflow" {
+  source = "./modules/mlflow"
 
   app_name               = var.app_name
   environment            = var.environment
   aws_region             = var.aws_region
   vpc_id                 = module.networking.vpc_id
-  private_subnet_ids     = module.networking.private_subnet_ids
+  public_subnet_ids      = module.networking.public_subnet_ids
   ecs_cluster_id         = module.ecs.cluster_id
   ecs_execution_role_arn = module.ecs.execution_role_arn
   load_balancer_arn      = module.load_balancer.load_balancer_arn
   load_balancer_dns_name = module.load_balancer.load_balancer_dns_name
   alb_security_group_id  = module.security.alb_security_group_id
-  grafana_admin_password = var.grafana_admin_password
+  db_username            = var.mlflow_db_username
+  db_password            = var.mlflow_db_password
+}
+
+# Airflow Module
+module "airflow" {
+  source = "./modules/airflow"
+
+  app_name               = var.app_name
+  environment            = var.environment
+  aws_region             = var.aws_region
+  vpc_id                 = module.networking.vpc_id
+  public_subnet_ids      = module.networking.public_subnet_ids
+  ecs_cluster_id         = module.ecs.cluster_id
+  ecs_execution_role_arn = module.ecs.execution_role_arn
+  load_balancer_arn      = module.load_balancer.load_balancer_arn
+  load_balancer_dns_name = module.load_balancer.load_balancer_dns_name
+  alb_security_group_id  = module.security.alb_security_group_id
+  db_username            = var.airflow_db_username
+  db_password            = var.airflow_db_password
+  airflow_fernet_key     = var.airflow_fernet_key
+  airflow_secret_key     = var.airflow_secret_key
+  mlflow_tracking_uri    = module.mlflow.mlflow_url
+  mlflow_s3_bucket_arn   = module.mlflow.mlflow_s3_bucket_arn
 }

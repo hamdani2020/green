@@ -46,9 +46,42 @@ variable "memory" {
   default     = 2048
 }
 
-variable "grafana_admin_password" {
-  description = "Admin password for Grafana"
+
+
+# MLflow Variables
+variable "mlflow_db_username" {
+  description = "Database username for MLflow"
+  type        = string
+  default     = "mlflow"
+}
+
+variable "mlflow_db_password" {
+  description = "Database password for MLflow"
   type        = string
   sensitive   = true
-  default     = "admin123"
+}
+
+# Airflow Variables
+variable "airflow_db_username" {
+  description = "Database username for Airflow"
+  type        = string
+  default     = "airflow"
+}
+
+variable "airflow_db_password" {
+  description = "Database password for Airflow"
+  type        = string
+  sensitive   = true
+}
+
+variable "airflow_fernet_key" {
+  description = "Fernet key for Airflow encryption"
+  type        = string
+  sensitive   = true
+}
+
+variable "airflow_secret_key" {
+  description = "Secret key for Airflow webserver"
+  type        = string
+  sensitive   = true
 }

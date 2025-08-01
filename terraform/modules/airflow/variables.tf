@@ -18,8 +18,8 @@ variable "vpc_id" {
   type        = string
 }
 
-variable "private_subnet_ids" {
-  description = "IDs of the private subnets"
+variable "public_subnet_ids" {
+  description = "IDs of the public subnets"
   type        = list(string)
 }
 
@@ -43,10 +43,38 @@ variable "alb_security_group_id" {
   type        = string
 }
 
-variable "grafana_admin_password" {
-  description = "Admin password for Grafana"
+variable "db_username" {
+  description = "Database username for Airflow"
+  type        = string
+  default     = "airflow"
+}
+
+variable "db_password" {
+  description = "Database password for Airflow"
   type        = string
   sensitive   = true
+}
+
+variable "airflow_fernet_key" {
+  description = "Fernet key for Airflow encryption"
+  type        = string
+  sensitive   = true
+}
+
+variable "airflow_secret_key" {
+  description = "Secret key for Airflow webserver"
+  type        = string
+  sensitive   = true
+}
+
+variable "mlflow_tracking_uri" {
+  description = "MLflow tracking server URI"
+  type        = string
+}
+
+variable "mlflow_s3_bucket_arn" {
+  description = "ARN of the MLflow S3 bucket"
+  type        = string
 }
 
 variable "load_balancer_dns_name" {

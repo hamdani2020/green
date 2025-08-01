@@ -118,4 +118,8 @@ jobs:
         env:
           TF_VAR_gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
           TF_VAR_grafana_admin_password: ${{ secrets.GRAFANA_ADMIN_PASSWORD }}
+          TF_VAR_mlflow_db_password: ${{ secrets.MLFLOW_DB_PASSWORD }}
+          TF_VAR_airflow_db_password: ${{ secrets.AIRFLOW_DB_PASSWORD }}
+          TF_VAR_airflow_fernet_key: ${{ secrets.AIRFLOW_FERNET_KEY }}
+          TF_VAR_airflow_secret_key: ${{ secrets.AIRFLOW_SECRET_KEY }}
         run: terraform plan -no-color

@@ -45,3 +45,43 @@ variable "memory" {
   type        = number
   default     = 2048
 }
+
+
+
+# MLflow Variables
+variable "mlflow_db_username" {
+  description = "Database username for MLflow"
+  type        = string
+  default     = "mlflow"
+}
+
+variable "mlflow_db_password" {
+  description = "Database password for MLflow"
+  type        = string
+  sensitive   = true
+}
+
+# Airflow Variables
+variable "airflow_db_username" {
+  description = "Database username for Airflow"
+  type        = string
+  default     = "airflow"
+}
+
+variable "airflow_db_password" {
+  description = "Database password for Airflow"
+  type        = string
+  sensitive   = true
+}
+
+variable "airflow_fernet_key" {
+  description = "Fernet key for Airflow encryption"
+  type        = string
+  sensitive   = true
+}
+
+variable "airflow_secret_key" {
+  description = "Secret key for Airflow webserver"
+  type        = string
+  sensitive   = true
+}

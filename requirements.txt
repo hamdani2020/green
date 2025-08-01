@@ -4,3 +4,5 @@ python-dotenv
 ultralytics
 opencv-python-headless
 pillow
+prometheus-client
+psutil

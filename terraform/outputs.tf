@@ -27,3 +27,13 @@ output "public_subnet_ids" {
   description = "IDs of the public subnets"
   value       = module.networking.public_subnet_ids
 }
+
+output "mlflow_url" {
+  description = "URL to access MLflow"
+  value       = module.mlflow.mlflow_url
+}
+
+output "airflow_url" {
+  description = "URL to access Airflow"
+  value       = module.airflow.airflow_url
+}

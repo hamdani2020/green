@@ -11,6 +11,15 @@ from dotenv import load_dotenv
 from PIL import Image
 from ultralytics import YOLO
 
+# Import metrics middleware
+from metrics_middleware import (
+    initialize_metrics,
+    track_yolo_detection,
+    track_gemini_api_call,
+    track_request,
+    track_active_users
+)
+
 # Load environment variables
 load_dotenv()
 
@@ -66,6 +75,9 @@ def detect_objects(image, confidence_threshold=0.5):
             detected_objects.append(
                 {"class": class_name, "confidence": conf, "bbox": (x1, y1, x2, y2)}
             )
+            
+            # Track each detection
+            track_yolo_detection()
 
     return img_array, detected_objects
 
@@ -201,6 +213,15 @@ def display_conversation_history():
 
 # Streamlit App
 def main():
+    # Initialize metrics on app start
+    initialize_metrics()
+    
+    # Track active users
+    track_active_users()
+    
+    # Track page request
+    track_request('/', 'GET')
+    
     # Page configuration
     st.set_page_config(
         page_title="🍅🍆GreenAI",
@@ -333,22 +354,19 @@ def main():
                     stream=stream_response,
                 )
 
-                # Addd assistant response to conversation History
+                # Track successful API call
+                track_gemini_api_call('success')
+
+                # Add assistant response to conversation History
                 st.session_state.conversation_history.append(
                     {"role": "assistant", "content": response}
                 )
 
-                # Update parent message ID for context tracking
-                # st.session_state.parent_message_id = str(uuid.uuid4())
-
-                # add_to_conversation_history("assistant", response)
-                #
-                # st.subheader("AmaliAI's Response")
-                # st.write(response)
-
                 st.rerun()
 
             except Exception as e:
+                # Track failed API call
+                track_gemini_api_call('error')
                 st.error(f"An error occured: {str(e)}")
 
         # for message in st.session_state.conversation_history:
